@@ -4,11 +4,17 @@
 
 ### 1. Installation
 
-First clone the repo and create environment:
+Clone the repo and create the environment:
 
 ```
-git clone https://github.com/rmokady/CLIP_prefix_caption &&
-cd star
+git clone https://github.com/LexieK7/STAR
+cd STAR
 conda env create -f environment.yml
-conda activate clip_prefix_caption
+conda activate star
 ```
+
+Download pre-trained GPT2 weights
+
+### 2. Preprocess whole slide images
+
+CLAM(https://github.com/mahmoodlab/CLAM) is used to extract Patch features.

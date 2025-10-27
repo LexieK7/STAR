@@ -30,7 +30,7 @@ def save_hdf5(output_path, asset_dict, attr_dict=None, mode='a'):
     return output_path
 
 
-sample_list = os.listdir("./biopsy_10x_1024/h5_files/")
+sample_list = os.listdir("H5_FILES")
 base_h5_save_dir = "H5 SAVE PATH"
 base_pt_save_dir = "PT SAVE PATH"
 
@@ -106,3 +106,4 @@ for i in range(len(sample_list)):
 
     features = torch.from_numpy(fea)
     torch.save(features, now_pt_path)
+

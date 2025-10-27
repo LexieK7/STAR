@@ -30,9 +30,9 @@ def save_hdf5(output_path, asset_dict, attr_dict=None, mode='a'):
     return output_path
 
 
-sample_list = os.listdir("./feature/h5_files")
-base_h5_save_dir = "./feature/h5_files"
-base_pt_save_dir = "./feature/pt_files"
+sample_list = os.listdir("./feature/patch_feature/h5_files")
+base_h5_save_dir = "./feature/slide_feature/h5_files"
+base_pt_save_dir = "./feature/slide_feature/pt_files"
 
 # load model
 
@@ -69,7 +69,7 @@ perineural_model.cuda()
 # aggragate patch feature.
 
 for i in range(len(sample_list)):
-    now_sample = "./feature/h5_files" + sample_list[i]
+    now_sample = "./feature/patch_feature/h5_files" + sample_list[i]
     print(now_sample)
 
     f = h5py.File(now_sample)
@@ -106,5 +106,6 @@ for i in range(len(sample_list)):
 
     features = torch.from_numpy(fea)
     torch.save(features, now_pt_path)
+
 
 

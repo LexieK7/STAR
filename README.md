@@ -1,5 +1,7 @@
 # STAR
 
+## A Scalable Vision-Language Model for Automated Generation of Comprehensive Structured Pathology Reports
+
 ## How to use our model?
 
 ### 1. Installation

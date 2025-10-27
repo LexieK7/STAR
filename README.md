@@ -125,9 +125,13 @@ python item_all.py
 ### Basic Environment
 
 Linux (Tested on Ubuntu 18.04)
+
 NVIDIA GPU (Tested on GeForce RTX 3090 ) with CUDA 12.2
+
 Python (3.9)
+
 Torch (1.9.0+cu111)
+
 torchvision (0.10.1)
 
 ## Reference

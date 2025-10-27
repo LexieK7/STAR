@@ -69,7 +69,7 @@ cap_model = cap_model.to(device)
 tokenizer = GPT2Tokenizer.from_pretrained("./gpt2_weight")
 
 
-with open('./data/CRC_report/annotations/BIOPSY_CRC_TEST.json', 'r') as f:
+with open('./data/CRC_report/TCGA_CRC_TEST.json', 'r') as f:
     data = json.load(f)
 print("%0d captions loaded from json " % len(data))
 all_captions = {}
@@ -148,3 +148,4 @@ print("%0d embeddings saved " % len(all_captions))
 
 scorer = Scorer(all_captions,gt_captions)
 scorer.compute_scores()
+

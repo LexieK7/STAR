@@ -37,18 +37,19 @@ The structure of the dataset is shown as follows:
 |     |--split_ViT-B_32_train.pkl
 |     |--split_ViT-B_32_train_tokens.pkl
 ├── feature/ # Patch features
-|     |--WSI
+|     |--WSI_slides
 |            |--TCGA-A6-2679-01Z-00-DX1.8df66ef4-d9e5-41db-836d-f0afe46d6b5a.svs
 |            |--TCGA-A6-2678-01Z-00-DX1.bded5c5c-555a-492a-91c7-151492d0ee5e.svs
 |            |--...
-|     |--pt_files
-|            |--TCGA-A6-2679-01Z-00-DX1.8df66ef4-d9e5-41db-836d-f0afe46d6b5a.pt
-|            |--TCGA-A6-2678-01Z-00-DX1.bded5c5c-555a-492a-91c7-151492d0ee5e.pt
-|            |--...
-|     |--h5_files
-|            |--TCGA-A6-2679-01Z-00-DX1.8df66ef4-d9e5-41db-836d-f0afe46d6b5a.h5
-|            |--TCGA-A6-2678-01Z-00-DX1.bded5c5c-555a-492a-91c7-151492d0ee5e.h5
-|            |--...
+|     |--patch_feature
+|            |--pt_files
+|                   |--TCGA-A6-2679-01Z-00-DX1.8df66ef4-d9e5-41db-836d-f0afe46d6b5a.pt
+|                   |--TCGA-A6-2678-01Z-00-DX1.bded5c5c-555a-492a-91c7-151492d0ee5e.pt
+|                   |--...
+|            |--h5_files
+|                   |--TCGA-A6-2679-01Z-00-DX1.8df66ef4-d9e5-41db-836d-f0afe46d6b5a.h5
+|                   |--TCGA-A6-2678-01Z-00-DX1.bded5c5c-555a-492a-91c7-151492d0ee5e.h5
+|                   |--...
 └── README.md
 ```
 
@@ -76,7 +77,7 @@ Reports are saved in a JSON file (e.g., TCGA_CRC_TEST.json), which follows the s
 
 ## WSI Preprocessing
 
-In this work, we adpoted CLAM(https://github.com/mahmoodlab/CLAM) for preprocessing and feature extraction. For installation guide, we recommend to follow the original instructions(https://github.com/mahmoodlab/CLAM](https://github.com/mahmoodlab/CLAM/blob/master/docs/INSTALLATION.md).
+In this work, we adpoted [CLAM](https://github.com/mahmoodlab/CLAM) for preprocessing and feature extraction. For installation guide, we recommend to follow the original [instructions](https://github.com/mahmoodlab/CLAM/blob/master/docs/INSTALLATION.md).
 
 
 Then, based on the extracted .pt and .h5 features, we can derive the slide-level feature representation by aggregating patch-level features. Finally, the slide-level feature and patch-level feature can be concatenated to form the complete representation of each WSI:
@@ -86,15 +87,15 @@ python get_wsi_feature.py
 python concat_feature.py
 ```
 
-
-
-### 3. Training
-
-Extract features:
+Integrate the text and features into a single training file：
 
 ```
-python parse_crc.py 
+python parse_crc.py --clip_model_type ViT-B/32
 ```
+
+
+###  Training
+
 
 Train:
 
@@ -108,29 +109,28 @@ If you want to generate MMR-related information:
 python train_fea_pool_mmr.py --data ./data/CRC_report/split_ViT-B_32_train.pkl --out_dir ./report_mmr/
 ```
 
-### 4. Testing
+### Testing
 
-NLP metrics:
+If you want to test NLP-related metrics:
 
 ```
 python cocoeval_wsi_pool.py
-```
-OR
-```
-python cocoeval_wsi_pool_mmr.py
 ```
 
 If you want to get the performance of each pathology parameter：
 ```
 python item_all.py
 ```
-OR
-```
-python item_mmr.py
-```
+
+### Basic Environment
+
+Linux (Tested on Ubuntu 18.04)
+NVIDIA GPU (Tested on GeForce RTX 3090 ) with CUDA 12.2
+Python (3.9)
+Torch (1.9.0+cu111)
+torchvision (0.10.1)
 
 ## Reference
-
 If you find our work useful in your research or if you use parts of this code please consider citing our paper:
 
 ```

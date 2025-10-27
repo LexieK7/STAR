@@ -13,10 +13,10 @@ def main(clip_model_type: str):
     clip_model_name = clip_model_type.replace('/', '_')
     out_path = f"./data/CRC_report/split_{clip_model_name}_train.pkl"
 
-    base_path = "./pt_files/"# Path to pt_files
+    base_path = ".feature/final_feature/pt_files/"# Path to pt_files
 
 
-    with open('./data/CRC_report/CC_MMR_TRAIN.json', 'r') as f:
+    with open('./data/CRC_report/TCGA_CRC_TEST.json', 'r') as f:
         data = json.load(f)
     print("%0d captions loaded from json " % len(data))
     all_embeddings = []
@@ -57,4 +57,5 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--clip_model_type', default="ViT-B/32", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
     args = parser.parse_args()
+
     exit(main(args.clip_model_type))

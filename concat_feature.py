@@ -29,15 +29,15 @@ def save_hdf5(output_path, asset_dict, attr_dict=None, mode='a'):
     return output_path
 
 
-sample_list = os.listdir("./biopsy_wsi_fea_10x/h5_files/")
+sample_list = os.listdir("./feature/slide_feature/h5_files/")
 
-base_h5_save_dir = "H5 SAVE PATH"
-base_pt_save_dir = "PT SAVE PATH"
+base_h5_save_dir = "./feature/final_feature/h5_files/"
+base_pt_save_dir = "./feature/final_feature/h5_files/"
 
 for i in range(len(sample_list)):
 
-    wsi_sample_path = "./biopsy_wsi_fea_10x/h5_files/" + sample_list[i]
-    clus_sample_path = "./biopsy_10x_1024/h5_files/" + sample_list[i]
+    wsi_sample_path = "./feature/slide_feature/h5_files/" + sample_list[i]
+    clus_sample_path = "./feature/patch_feature/h5_files/" + sample_list[i]
     print(wsi_sample_path)
 
     f_wsi = h5py.File(wsi_sample_path)
@@ -78,3 +78,4 @@ for i in range(len(sample_list)):
 
         features = torch.from_numpy(all_np)
         torch.save(features, now_pt_path)
+

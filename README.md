@@ -1,6 +1,13 @@
-# STAR
+# 🧠 STAR: Structured Automated Reporting for Pathology
 
-## A Scalable Vision-Language Model for Automated Generation of Comprehensive Structured Pathology Reports
+**STAR (STructured Automated Reporting)** is a unified and highly scalable **vision-language model** designed to automatically generate **structured pathology reports** directly from whole-slide pathology images.
+
+Trained and validated on over **10,000 pathology image–report pairs** from multiple medical centers, STAR achieves high accuracy in describing key pathological parameters, including **tumor subtype**, **grade**, and **invasion depth**, across both surgical resection and biopsy samples.
+
+Beyond diagnostic report generation, STAR demonstrates **cross-modal scalability** by predicting **mismatch repair (MMR) status**, bridging histomorphological analysis with **molecular phenotype prediction**.  
+This framework establishes a **generalizable, interpretable, and standardized** approach for data-driven pathology reporting, advancing the integration of AI in precision medicine.
+
+---
 
 ## How to use our model?
 

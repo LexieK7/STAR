@@ -9,6 +9,22 @@ This framework establishes a generalizable, interpretable, and standardized appr
 
 ---
 
+# ⚙️ How to use our model?
+
+###  Prerequisite
+
+Clone the repo and create the environment:
+
+```
+git clone https://github.com/LexieK7/STAR
+cd STAR
+conda env create -f environment.yml
+conda activate star
+```
+
+Download the pre-trained [GPT-2](https://huggingface.co/openai-community/gpt2) weights from Hugging Face.
+
+
 ## 📁 Data Preparation
 
 The structure of the dataset is shown as follows:
@@ -21,6 +37,10 @@ The structure of the dataset is shown as follows:
 |     |--split_ViT-B_32_train.pkl
 |     |--split_ViT-B_32_train_tokens.pkl
 ├── feature/ # Patch features
+|     |--WSI
+|            |--TCGA-A6-2679-01Z-00-DX1.8df66ef4-d9e5-41db-836d-f0afe46d6b5a.svs
+|            |--TCGA-A6-2678-01Z-00-DX1.bded5c5c-555a-492a-91c7-151492d0ee5e.svs
+|            |--...
 |     |--pt_files
 |            |--TCGA-A6-2679-01Z-00-DX1.8df66ef4-d9e5-41db-836d-f0afe46d6b5a.pt
 |            |--TCGA-A6-2678-01Z-00-DX1.bded5c5c-555a-492a-91c7-151492d0ee5e.pt
@@ -35,7 +55,7 @@ The structure of the dataset is shown as follows:
 The feature directory stores image features extracted from each WSI, while the data directory contains the corresponding pathology reports.
 Reports are saved in a JSON file (e.g., TCGA_CRC_TEST.json), which follows the structured format described below.
 
-```json
+```
 [
  {
   "caption": "Adenocarcinoma, poorly differentiated, pt2.",
@@ -53,31 +73,21 @@ Reports are saved in a JSON file (e.g., TCGA_CRC_TEST.json), which follows the s
  ]
 ```
 
-## How to use our model?
 
-### 1. Installation
+## WSI Preprocessing
 
-Clone the repo and create the environment:
+In this work, we adpoted CLAM(https://github.com/mahmoodlab/CLAM) for preprocessing and feature extraction. For installation guide, we recommend to follow the original instructions(https://github.com/mahmoodlab/CLAM](https://github.com/mahmoodlab/CLAM/blob/master/docs/INSTALLATION.md).
 
-```
-git clone https://github.com/LexieK7/STAR
-cd STAR
-conda env create -f environment.yml
-conda activate star
-```
 
-Download pre-trained GPT2 weights.
-
-### 2. Preprocess whole slide images
-
-CLAM(https://github.com/mahmoodlab/CLAM) is used to extract Patch features.
-
-Preprocess data:
+Then, based on the extracted .pt and .h5 features, we can derive the slide-level feature representation by aggregating patch-level features. Finally, the slide-level feature and patch-level feature can be concatenated to form the complete representation of each WSI:
 
 ```
 python get_wsi_feature.py
 python concat_feature.py
 ```
+
+
+
 ### 3. Training
 
 Extract features:

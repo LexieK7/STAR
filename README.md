@@ -74,6 +74,8 @@ Reports are saved in a JSON file (e.g., TCGA_CRC_TEST.json), which follows the s
  ]
 ```
 
+The TCGA (The Cancer Genome Atlas) dataset used in this study can be publicly accessed and downloaded from the **Genomic Data Commons (GDC) Data Portal**:  
+🔗 [https://portal.gdc.cancer.gov/](https://portal.gdc.cancer.gov/)
 
 ## WSI Preprocessing
 

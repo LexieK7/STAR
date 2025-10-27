@@ -13,6 +13,7 @@ This framework establishes a generalizable, interpretable, and standardized appr
 
 The structure of the dataset is shown as follows:
 
+```
 |-- data/ # Annotation preparation
 |     |--CRC_report
 |            |--TCGA_CRC_TEST.json
@@ -29,6 +30,7 @@ The structure of the dataset is shown as follows:
 |            |--TCGA-A6-2678-01Z-00-DX1.bded5c5c-555a-492a-91c7-151492d0ee5e.h5
 |            |--...
 └── README.md
+```
 
 The feature directory stores image features extracted from each WSI, while the data directory contains the corresponding pathology reports.
 Reports are saved in a JSON file (e.g., TCGA_CRC_TEST.json), which follows the structured format described below.
@@ -49,6 +51,7 @@ Reports are saved in a JSON file (e.g., TCGA_CRC_TEST.json), which follows the s
  },
  ...
  ]
+```
 
 ## How to use our model?
 

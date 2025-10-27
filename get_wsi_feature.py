@@ -37,31 +37,31 @@ base_pt_save_dir = "./feature/slide_feature/pt_files"
 # load model
 
 type_model = Transformer(num_classes=3)
-type_weight = torch.load("MODEL PATH")
+type_weight = torch.load("./model/type.pt")
 type_model.load_state_dict(type_weight, strict=False)
 type_model.eval()
 type_model.cuda()
 
 grade_model = Transformer(num_classes=2)
-grade_weight = torch.load("MODEL PATH")
+grade_weight = torch.load("./model/grade.pt")
 grade_model.load_state_dict(grade_weight, strict=False)
 grade_model.eval()
 grade_model.cuda()
 
 invasion_model = Transformer(num_classes=5)
-invasion_weight = torch.load("MODEL PATH")
+invasion_weight = torch.load("./model/invasion.pt")
 invasion_model.load_state_dict(invasion_weight, strict=False)
 invasion_model.eval()
 invasion_model.cuda()
 
 venous_model = Transformer(num_classes=2)
-venous_weight = torch.load("MODEL PATH")
+venous_weight = torch.load("./model/venous.pt")
 venous_model.load_state_dict(venous_weight, strict=False)
 venous_model.eval()
 venous_model.cuda()
 
 perineural_model = Transformer(num_classes=2)
-perineural_weight = torch.load("MODEL PATH")
+perineural_weight = torch.load("/.model/perineural.pt")
 perineural_model.load_state_dict(perineural_weight, strict=False)
 perineural_model.eval()
 perineural_model.cuda()
@@ -106,6 +106,7 @@ for i in range(len(sample_list)):
 
     features = torch.from_numpy(fea)
     torch.save(features, now_pt_path)
+
 
 
 

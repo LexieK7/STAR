@@ -398,7 +398,6 @@ class ClipCaptionModel(nn.Module):
         '''
         
         self.clip_project_10x = MLP((256, 512, self.gpt_embedding_size))
-        self.clip_project_20x = MLP((256, 512, self.gpt_embedding_size))
         self.clip_project_patch = MLP((512, 512, self.gpt_embedding_size))
 
         self.img_queries = nn.Parameter(torch.randn(128, 512)) 

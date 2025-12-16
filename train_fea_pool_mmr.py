@@ -469,7 +469,18 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
             #tokens, mask, prefix = tokens.cuda(), mask.cuda(), prefix.cuda().float()
             outputs = model(tokens, prefix, mask)
             logits = outputs.logits[:, dataset.prefix_length - 1: -1]
-            loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
+
+            targets = tokens[:, :logits.shape[1]]
+            
+            loss = F.cross_entropy(
+                logits.reshape(-1, logits.size(-1)),
+                targets.reshape(-1),
+                reduction="none"
+            )
+            
+            loss = loss * mask[:, :logits.shape[1]].reshape(-1)
+            loss = loss.sum() / mask.sum()
+            
             loss.backward()
             optimizer.step()
             scheduler.step()

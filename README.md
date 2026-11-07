@@ -124,6 +124,93 @@ If you want to get the performance of each pathology parameter：
 python item_all.py
 ```
 
+### Step-by-Step Tutorial
+
+This tutorial provides an overview of the complete STAR workflow, including environment setup, data preparation, WSI feature extraction, model training, report generation, and performance evaluation.
+
+#### Step 1. Installation
+
+Clone the repository and create the required environment:
+
+```bash
+git clone https://github.com/LexieK7/STAR.git
+cd STAR
+
+conda env create -f environment.yml
+conda activate star
+```
+
+Download the required pretrained GPT-2 weights from [Hugging Face](https://huggingface.co/openai-community/gpt2).
+
+#### Step 2. Data Preparation
+
+STAR uses pre-extracted WSI features and corresponding pathology reports as inputs.
+
+The image features are stored in the `feature/` directory, while the pathology report annotations are stored in `data/CRC_report/`.
+
+Each annotation contains an `image_id` identifying the WSI and a `caption` containing the corresponding pathology report.
+
+#### Step 3. WSI Feature Extraction
+
+We follow the CLAM preprocessing pipeline to extract patch-level features from WSIs.
+
+After obtaining the patch-level features, run:
+
+```bash
+python get_wsi_feature.py
+python concat_feature.py
+```
+
+These scripts prepare the slide-level and patch-level representations used by STAR.
+
+Next, integrate the image representations and corresponding report annotations:
+
+```bash
+python parse_crc.py --clip_model_type ViT-B/32
+```
+
+#### Step 4. Model Training
+
+Train STAR for structured pathology report generation:
+
+```bash
+python train_fea_pool.py \
+    --data ./data/CRC_report/split_ViT-B_32_train.pkl \
+    --out_dir ./report/
+```
+
+For the extended MMR-related reporting task:
+
+```bash
+python train_fea_pool_mmr.py \
+    --data ./data/CRC_report/split_ViT-B_32_train.pkl \
+    --out_dir ./report_mmr/
+```
+
+#### Step 5. Report Generation
+
+After training, load the trained STAR checkpoint and the corresponding WSI features to generate structured pathology reports.
+
+The generated reports describe key pathological parameters, including histological subtype, grade, depth of invasion, venous invasion, and perineural invasion.
+
+A complete inference example, including checkpoint loading, input configuration, and output files, should be provided here.
+
+#### Step 6. Performance Evaluation
+
+Evaluate report-generation performance using standard NLP metrics:
+
+```bash
+python cocoeval_wsi_pool.py
+```
+
+Evaluate individual pathological parameters:
+
+```bash
+python item_all.py
+```
+
+These scripts support evaluation at both the report and individual pathological parameter levels.
+
 ### Basic Environment
 
 Linux (Tested on Ubuntu 18.04)
